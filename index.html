@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Общага-тайкун</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Яндекс Игры SDK: на платформе отдаётся по этому пути. Локально его нет — игра включит мок. -->
+  <script src="/sdk.js"></script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <div id="ui">
+      <header id="hud">
+        <div class="panel hud-box coins" id="hudCoins">
+          <span class="ico" data-icon="coin"></span>
+          <div class="hb-txt"><b id="coins">0</b><small id="income">+0</small></div>
+        </div>
+        <div class="panel hud-box rep" id="hudRep">
+          <span class="ico" data-icon="rep"></span>
+          <div class="rep-wrap">
+            <div class="rep-top"><span id="repLabel"></span><b id="repVal">0</b></div>
+            <div class="bar rep-bar"><i id="repBar"></i><em style="left:25%"></em><em style="left:50%"></em><em style="left:75%"></em></div>
+            <small id="repTier"></small>
+          </div>
+        </div>
+        <div class="panel hud-box stars" id="hudStars" data-act="prestige">
+          <span class="ico" data-icon="star"></span><b id="stars">0</b>
+        </div>
+        <button class="panel icon-btn" data-act="settings" aria-label="settings"><span class="ico" data-icon="gear"></span></button>
+      </header>
+
+      <div id="goal" class="panel goal">
+        <span class="ico goal-ic" data-icon="target"></span>
+        <div class="goal-body">
+          <span id="goalText"></span>
+          <div class="bar"><i id="goalBar"></i></div>
+        </div>
+        <div class="goal-side">
+          <small id="goalReward"></small>
+          <button id="goalBtn" class="btn sm gold" data-act="claimGoal"></button>
+        </div>
+      </div>
+
+      <button id="boostBtn" class="panel boost hidden" data-act="boost">
+        <span class="ico" data-icon="tv"></span>
+        <span class="boost-txt"><b id="boostTop"></b><small id="boostSub"></small></span>
+      </button>
+
+      <div id="event" class="event panel hidden"></div>
+
+      <div id="advisor" class="advisor hidden">
+        <img id="advImg" alt="">
+        <div class="panel adv-bubble"><span id="advText"></span></div>
+      </div>
+
+      <div id="sheet" class="sheet panel hidden"></div>
+
+      <div id="zoom" class="zoom">
+        <button class="panel icon-btn" data-act="zoomIn" aria-label="zoom in"><span class="ico" data-icon="plus"></span></button>
+        <button class="panel icon-btn" data-act="zoomOut" aria-label="zoom out"><span class="ico" data-icon="minus"></span></button>
+      </div>
+
+      <nav id="nav" class="nav panel">
+        <button class="nav-btn" data-act="staff"><span class="ico" data-icon="staff"></span><span id="navStaffL"></span><i id="staffBadge" class="badge hidden">!</i></button>
+        <button class="nav-btn" data-act="prestige"><span class="ico" data-icon="move"></span><span id="navMoveL"></span><i id="moveBadge" class="badge hidden">★</i></button>
+      </nav>
+
+      <div id="toasts" class="toasts"></div>
+
+      <div id="modalWrap" class="modal-wrap hidden"><div id="modal" class="modal panel"></div></div>
+
+      <div id="adOverlay" class="ad-overlay hidden"><div class="panel"><span class="ico" data-icon="tv"></span><span id="adText"></span></div></div>
+    </div>
+
+    <div id="loading">
+      <div class="ld-house">
+        <div class="ld-roof"></div>
+        <div class="ld-body"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="ld-title">Общага-тайкун</div>
+      <div class="ld-bar"><i id="ldBar"></i></div>
+      <div class="ld-text" id="ldText"></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/economy.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/sim.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/art_cells.js"></script>
+  <script src="js/actors.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/sdk.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
