@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/interact/door.gd" id="1_door"]
+[ext_resource type="Material" path="res://materials/dark_wood.tres" id="2_wood"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_area"]
+size = Vector3(1.6, 2.7, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_panel"]
+size = Vector3(1.56, 2.7, 0.08)
+
+[sub_resource type="BoxMesh" id="Mesh_panel"]
+size = Vector3(1.56, 2.7, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sensor"]
+size = Vector3(1.8, 2, 2.6)
+
+[node name="Door" type="Area3D"]
+script = ExtResource("1_door")
+prompt = "Открыть дверь"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.35, 0)
+shape = SubResource("BoxShape3D_area")
+
+[node name="Hinge" type="Node3D" parent="."]
+
+[node name="Panel" type="AnimatableBody3D" parent="Hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.35, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hinge/Panel"]
+shape = SubResource("BoxShape3D_panel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hinge/Panel"]
+mesh = SubResource("Mesh_panel")
+surface_material_override/0 = ExtResource("2_wood")
+
+[node name="EnemySensor" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemySensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1, 0)
+shape = SubResource("BoxShape3D_sensor")

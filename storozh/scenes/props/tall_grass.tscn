@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/interact/tall_grass.gd" id="1_grass"]
+[ext_resource type="Material" path="res://materials/grass.tres" id="2_grass"]
+
+[node name="TallGrass" type="Area3D"]
+script = ExtResource("1_grass")
+material = ExtResource("2_grass")

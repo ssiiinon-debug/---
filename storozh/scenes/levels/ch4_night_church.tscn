@@ -1,0 +1,2005 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/night_level.gd" id="1_hdp8g"]
+[ext_resource type="Script" path="res://scripts/world/block.gd" id="2_1xs2i"]
+[ext_resource type="Material" path="res://materials/ground.tres" id="3_sa8pe"]
+[ext_resource type="Material" path="res://materials/planks.tres" id="4_0u4v1"]
+[ext_resource type="Material" path="res://materials/logs.tres" id="5_psrk8"]
+[ext_resource type="Material" path="res://materials/dark_wood.tres" id="6_16sil"]
+[ext_resource type="Material" path="res://materials/icon.tres" id="7_ddgsr"]
+[ext_resource type="Material" path="res://materials/crate.tres" id="8_vsqca"]
+[ext_resource type="PackedScene" path="res://scenes/props/bench_hiding.tscn" id="9_v1au8"]
+[ext_resource type="Script" path="res://scripts/interact/hiding_spot.gd" id="10_22eue"]
+[ext_resource type="PackedScene" path="res://scenes/props/wardrobe_hiding.tscn" id="11_bt23p"]
+[ext_resource type="Material" path="res://materials/cloth_blue.tres" id="12_tq6uy"]
+[ext_resource type="Material" path="res://materials/cloth_green.tres" id="13_b60tw"]
+[ext_resource type="Material" path="res://materials/cloth_red.tres" id="14_rp7k2"]
+[ext_resource type="Material" path="res://materials/metal_olive.tres" id="15_6mwiu"]
+[ext_resource type="Material" path="res://materials/black.tres" id="16_7jubb"]
+[ext_resource type="Material" path="res://materials/bark.tres" id="17_dwul3"]
+[ext_resource type="PackedScene" path="res://scenes/props/door.tscn" id="18_ykukf"]
+[ext_resource type="Script" path="res://scripts/interact/door.gd" id="19_ui7lt"]
+[ext_resource type="PackedScene" path="res://scenes/props/battery.tscn" id="20_dqg4l"]
+[ext_resource type="Script" path="res://scripts/interact/pickup.gd" id="21_xv63i"]
+[ext_resource type="PackedScene" path="res://scenes/props/flash_charge.tscn" id="22_3j6dm"]
+[ext_resource type="PackedScene" path="res://scenes/props/creaky_board.tscn" id="23_q60df"]
+[ext_resource type="Script" path="res://scripts/interact/creaky_board.gd" id="24_umul0"]
+[ext_resource type="PackedScene" path="res://scenes/props/tall_grass.tscn" id="25_oo3j0"]
+[ext_resource type="Script" path="res://scripts/interact/tall_grass.gd" id="26_7w00n"]
+[ext_resource type="Material" path="res://materials/grass.tres" id="27_7isy3"]
+[ext_resource type="PackedScene" path="res://scenes/props/candle.tscn" id="28_fqqr1"]
+[ext_resource type="Script" path="res://scripts/world/candle.gd" id="29_ip7g0"]
+[ext_resource type="Material" path="res://materials/candle_flame.tres" id="30_dctf5"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="31_cmcmf"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="32_sbhrp"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/storozh.tscn" id="33_dlk0k"]
+[ext_resource type="Script" path="res://scripts/enemy/storozh.gd" id="34_l245a"]
+
+[sub_resource type="Environment" id="Environment_31gha"]
+background_mode = 1
+background_color = Color(0.016, 0.02, 0.032, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.36, 0.42, 0.62, 1)
+fog_enabled = true
+fog_light_color = Color(0.016, 0.02, 0.032, 1)
+fog_density = 0.06
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jb2xp"]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 1
+cell_size = 0.1
+cell_height = 0.1
+agent_height = 2.0
+agent_radius = 0.4
+agent_max_climb = 0.2
+agent_max_slope = 42.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_fdxcs"]
+radius = 1.5
+height = 2.6
+radial_segments = 10
+rings = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_uk0ff"]
+size = Vector3(0.12, 1.6, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rgblx"]
+size = Vector3(0.9, 0.12, 0.12)
+
+[sub_resource type="QuadMesh" id="QuadMesh_42jy6"]
+size = Vector2(0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6trie"]
+size = Vector3(1.6, 0.06, 0.25)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_32528"]
+top_radius = 0.0
+bottom_radius = 1.8
+height = 6.0
+radial_segments = 6
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4hhw1"]
+size = Vector3(10, 9, 20)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3gkam"]
+radius = 0.04
+height = 0.08
+
+[node name="Ch4NightChurch" type="Node3D" unique_id=1407876301]
+script = ExtResource("1_hdp8g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1846076483]
+environment = SubResource("Environment_31gha")
+
+[node name="Moon" type="DirectionalLight3D" parent="." unique_id=1444037537]
+transform = Transform3D(0.81915206, -0.43938506, 0.36868784, 0, 0.64278764, 0.76604444, -0.57357645, -0.62750685, 0.5265408, 0, 0, 0)
+light_color = Color(0.6, 0.68, 0.92, 1)
+light_energy = 0.15
+shadow_enabled = true
+directional_shadow_max_distance = 40.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1996205502]
+navigation_mesh = SubResource("NavigationMesh_jb2xp")
+
+[node name="Ground" type="Node3D" parent="NavigationRegion3D" unique_id=38605046]
+
+[node name="North" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=1466130319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -18.7)
+script = ExtResource("2_1xs2i")
+size = Vector3(52, 1, 14.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+
+[node name="South" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=1870318933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 17.7)
+script = ExtResource("2_1xs2i")
+size = Vector3(52, 1, 16.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+
+[node name="West" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=306764858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7, -0.5, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(20.6, 1, 20.8)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+
+[node name="East" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=277582581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7, -0.5, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(20.6, 1, 20.8)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+
+[node name="Bounds" type="Node3D" parent="NavigationRegion3D/Ground" unique_id=275966795]
+
+[node name="N" type="StaticBody3D" parent="NavigationRegion3D/Ground/Bounds" unique_id=1158458081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -26)
+visible = false
+script = ExtResource("2_1xs2i")
+size = Vector3(52, 6, 0.5)
+
+[node name="S" type="StaticBody3D" parent="NavigationRegion3D/Ground/Bounds" unique_id=395422553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 26)
+visible = false
+script = ExtResource("2_1xs2i")
+size = Vector3(52, 6, 0.5)
+
+[node name="W" type="StaticBody3D" parent="NavigationRegion3D/Ground/Bounds" unique_id=450627324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 2, 0)
+visible = false
+script = ExtResource("2_1xs2i")
+size = Vector3(0.5, 6, 52)
+
+[node name="E" type="StaticBody3D" parent="NavigationRegion3D/Ground/Bounds" unique_id=1225703441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 2, 0)
+visible = false
+script = ExtResource("2_1xs2i")
+size = Vector3(0.5, 6, 52)
+
+[node name="Church" type="Node3D" parent="NavigationRegion3D" unique_id=1084897115]
+
+[node name="Floor" type="Node3D" parent="NavigationRegion3D/Church" unique_id=400773855]
+
+[node name="North" type="StaticBody3D" parent="NavigationRegion3D/Church/Floor" unique_id=360615875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -5.3999996)
+script = ExtResource("2_1xs2i")
+size = Vector3(10.8, 0.2, 12)
+material = ExtResource("4_0u4v1")
+
+[node name="South" type="StaticBody3D" parent="NavigationRegion3D/Church/Floor" unique_id=1377696675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 6.8999996)
+script = ExtResource("2_1xs2i")
+size = Vector3(10.8, 0.2, 4.9999995)
+material = ExtResource("4_0u4v1")
+
+[node name="West" type="StaticBody3D" parent="NavigationRegion3D/Church/Floor" unique_id=1866863532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.1, 2.5)
+script = ExtResource("2_1xs2i")
+size = Vector3(2, 0.2, 3.8000002)
+material = ExtResource("4_0u4v1")
+
+[node name="East" type="StaticBody3D" parent="NavigationRegion3D/Church/Floor" unique_id=1671880224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8000001, -0.1, 2.5)
+script = ExtResource("2_1xs2i")
+size = Vector3(7.2, 0.2, 3.8000002)
+material = ExtResource("4_0u4v1")
+
+[node name="Soleya" type="StaticBody3D" parent="NavigationRegion3D/Church/Floor" unique_id=721446767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -8.575)
+script = ExtResource("2_1xs2i")
+size = Vector3(10, 0.08, 4.85)
+material = ExtResource("4_0u4v1")
+
+[node name="Walls" type="Node3D" parent="NavigationRegion3D/Church" unique_id=118160801]
+
+[node name="South_0" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1080163012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 3, 9.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.6, 6, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="South_1" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=756913298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 9.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.6, 3.2, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="South_2" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=398467368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1, 3, 9.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.6, 6, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="North_0" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=512909547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 3, -11.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.9, 6, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="North_1" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1012897101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -11.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(1, 2.6, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="North_2" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1593838549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9, -11.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(1, 2.2, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="North_3" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1455377165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95, 3, -11.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.9, 6, 0.4)
+material = ExtResource("5_psrk8")
+
+[node name="West_0" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=269640339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 3, -10.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 1.6)
+material = ExtResource("5_psrk8")
+
+[node name="West_1" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1546130221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 1.2, -9)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_2" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1889246882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 4.8, -9)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_3" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1033447666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 3, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 5.2)
+material = ExtResource("5_psrk8")
+
+[node name="West_4" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=87122205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 1.2, -3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_5" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=364132432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 4.8, -3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_6" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1789614206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 3, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.2)
+material = ExtResource("5_psrk8")
+
+[node name="West_7" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1420829228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 1.2, 1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_8" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=416034158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 4.8, 1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_9" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1091614681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 3, 3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.2)
+material = ExtResource("5_psrk8")
+
+[node name="West_10" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1316150596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 1.2, 5)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_11" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1399313382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 4.8, 5)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="West_12" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1300483195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2, 3, 7.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.6)
+material = ExtResource("5_psrk8")
+
+[node name="East_0" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1406607661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3, -10.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 1.6)
+material = ExtResource("5_psrk8")
+
+[node name="East_1" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1798753091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 4.4, -8.6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 3.2, 1.6)
+material = ExtResource("5_psrk8")
+
+[node name="East_2" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1853285208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3, -5.6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 4.4)
+material = ExtResource("5_psrk8")
+
+[node name="East_3" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1563919088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.2, -3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_4" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=647678898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 4.8, -3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_5" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=539106232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.2)
+material = ExtResource("5_psrk8")
+
+[node name="East_6" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=496793049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.2, 1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_7" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1778446721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 4.8, 1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_8" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1701150636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3, 3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.2)
+material = ExtResource("5_psrk8")
+
+[node name="East_9" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1878796820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.2, 5)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_10" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1616967736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 4.8, 5)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 2.4, 0.8)
+material = ExtResource("5_psrk8")
+
+[node name="East_11" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1120204524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 3, 7.2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4, 6, 3.6)
+material = ExtResource("5_psrk8")
+
+[node name="Iconostasis_0" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1971701174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 2.1, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.2, 4.2, 0.3)
+material = ExtResource("6_16sil")
+
+[node name="Iconostasis_1" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1801877719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.6, 1.4, 0.3)
+material = ExtResource("6_16sil")
+
+[node name="Iconostasis_2" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=1539304103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2.1, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.6, 4.2, 0.3)
+material = ExtResource("6_16sil")
+
+[node name="Iconostasis_3" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=392526302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.3, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.2, 1.8, 0.3)
+material = ExtResource("6_16sil")
+
+[node name="Iconostasis_4" type="StaticBody3D" parent="NavigationRegion3D/Church/Walls" unique_id=776103223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 2.1, -6)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.4, 4.2, 0.3)
+material = ExtResource("6_16sil")
+
+[node name="Roof" type="Node3D" parent="NavigationRegion3D/Church" unique_id=1618519734]
+
+[node name="Ceiling" type="StaticBody3D" parent="NavigationRegion3D/Church/Roof" unique_id=1402228774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.15, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(10.8, 0.3000002, 20.8)
+material = ExtResource("6_16sil")
+
+[node name="SlopeW" type="StaticBody3D" parent="NavigationRegion3D/Church/Roof" unique_id=1432058078]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, -2.9, 7.6, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(6.6, 0.3, 21.6)
+material = ExtResource("6_16sil")
+
+[node name="SlopeE" type="StaticBody3D" parent="NavigationRegion3D/Church/Roof" unique_id=2003378153]
+transform = Transform3D(0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0, 1, 2.9, 7.6, -1)
+script = ExtResource("2_1xs2i")
+size = Vector3(6.6, 0.3, 21.6)
+material = ExtResource("6_16sil")
+
+[node name="Drum" type="StaticBody3D" parent="NavigationRegion3D/Church/Roof" unique_id=128217263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.6, 3)
+script = ExtResource("2_1xs2i")
+size = Vector3(2.6, 3.2, 2.6)
+material = ExtResource("5_psrk8")
+
+[node name="Decor" type="Node3D" parent="NavigationRegion3D/Church" unique_id=111397921]
+
+[node name="Dome" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1506949518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.8, 3)
+material_override = ExtResource("6_16sil")
+mesh = SubResource("SphereMesh_fdxcs")
+
+[node name="CrossV" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1298187915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.6, 3)
+material_override = ExtResource("6_16sil")
+mesh = SubResource("BoxMesh_uk0ff")
+
+[node name="CrossH" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1794259820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.8, 3)
+material_override = ExtResource("6_16sil")
+mesh = SubResource("BoxMesh_rgblx")
+
+[node name="CrossSlant" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1025933014]
+transform = Transform3D(0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0, 0, 1, 0, 13.2, 3)
+material_override = ExtResource("6_16sil")
+mesh = SubResource("BoxMesh_rgblx")
+
+[node name="Icon_0" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=862147686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_1" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=956893070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_2" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1959321673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_3" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1285280975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_4" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=2096154140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_5" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=355287866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_6" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1559843383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_7" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=145648321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_8" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1600193144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_9" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=389668638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_10" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=1637906021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 1.7, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Icon_11" type="MeshInstance3D" parent="NavigationRegion3D/Church/Decor" unique_id=245276718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 3.2, -5.84)
+material_override = ExtResource("7_ddgsr")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_42jy6")
+
+[node name="Basement" type="Node3D" parent="NavigationRegion3D" unique_id=1914145243]
+
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=323682375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6000001, -3.1, 1.5000001)
+script = ExtResource("2_1xs2i")
+size = Vector3(4.6, 0.20000005, 9.6)
+material = ExtResource("4_0u4v1")
+
+[node name="WallW" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=295426308]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, -1.6, 1.5000001)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.3000002, 2.8, 9.6)
+material = ExtResource("5_psrk8")
+
+[node name="WallE" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=975643337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45000002, -1.6, 1.5000001)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.3, 2.8, 9.6)
+material = ExtResource("5_psrk8")
+
+[node name="WallN" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=541531444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.6, -3.15)
+script = ExtResource("2_1xs2i")
+size = Vector3(4, 2.8, 0.29999995)
+material = ExtResource("5_psrk8")
+
+[node name="WallS" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=456846429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.6, 6.15)
+script = ExtResource("2_1xs2i")
+size = Vector3(4, 2.8, 0.3000002)
+material = ExtResource("5_psrk8")
+
+[node name="Ramp" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=316112928]
+transform = Transform3D(1, 0, 0, 0, 0.7848828, 0.6196443, 0, -0.6196443, 0.7848828, -2.6, -1.5784882, 2.5619645)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.6, 0.2, 4.8414874)
+material = ExtResource("6_16sil")
+
+[node name="StepLook_0" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=533960174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -2.8133333, 0.8111111)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_1" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=1024821931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -2.48, 1.2333333)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_2" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=1670204011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -2.1466668, 1.6555556)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_3" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=1732461426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.8133334, 2.0777779)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_4" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=823796583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.48, 2.5)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_5" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=1045795904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.1466666, 2.9222221)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_6" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=644086038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -0.81333333, 3.3444445)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_7" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=407963768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -0.48, 3.7666667)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="StepLook_8" type="MeshInstance3D" parent="NavigationRegion3D/Basement" unique_id=70081002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -0.14666666, 4.188889)
+material_override = ExtResource("4_0u4v1")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6trie")
+
+[node name="Shelf_0" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=685959826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.375, -2.475, -1.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4499998, 0.049999952, 3)
+material = ExtResource("6_16sil")
+
+[node name="Shelf_1" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=398558083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.375, -1.775, -1.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4499998, 0.049999952, 3)
+material = ExtResource("6_16sil")
+
+[node name="Shelf_2" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=86064804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.375, -1.075, -1.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.4499998, 0.05000007, 3)
+material = ExtResource("6_16sil")
+
+[node name="ShelfPost_0" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=1288609585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38, -1.9, -2.85)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.08, 2.2, 0.08)
+material = ExtResource("6_16sil")
+
+[node name="ShelfPost_1" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=1353331622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38, -1.9, 0.25)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.08, 2.2, 0.08)
+material = ExtResource("6_16sil")
+
+[node name="Crate_0" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=649651030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, -2.65, 5.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.7, 0.7, 0.7)
+material = ExtResource("8_vsqca")
+
+[node name="Crate_1" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=627058997]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -1.25, -2, 5.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.6, 0.6)
+material = ExtResource("8_vsqca")
+
+[node name="Crate_2" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=1715108981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1, -2.65, 5.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.7, 0.7, 0.7)
+material = ExtResource("8_vsqca")
+
+[node name="Crate_3" type="StaticBody3D" parent="NavigationRegion3D/Basement" unique_id=1956799739]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, -1.1, -2.7, -2.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.6, 0.6)
+material = ExtResource("8_vsqca")
+
+[node name="Furniture" type="Node3D" parent="NavigationRegion3D" unique_id=1024287802]
+
+[node name="BenchW1" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=854856113 instance=ExtResource("9_v1au8")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.72, 0, -2.5)
+script = ExtResource("10_22eue")
+hide_prompt = "Залезть под лавку"
+look_yaw_limit = 65.0
+look_pitch_limit = 15.0
+
+[node name="BenchW2" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=473874440 instance=ExtResource("9_v1au8")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.72, 0, 7)
+script = ExtResource("10_22eue")
+hide_prompt = "Залезть под лавку"
+look_yaw_limit = 65.0
+look_pitch_limit = 15.0
+
+[node name="BenchE1" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=756065375 instance=ExtResource("9_v1au8")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.72, 0, -2.5)
+script = ExtResource("10_22eue")
+hide_prompt = "Залезть под лавку"
+look_yaw_limit = 65.0
+look_pitch_limit = 15.0
+
+[node name="BenchE2" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=1921493505 instance=ExtResource("9_v1au8")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.72, 0, 3)
+script = ExtResource("10_22eue")
+hide_prompt = "Залезть под лавку"
+look_yaw_limit = 65.0
+look_pitch_limit = 15.0
+
+[node name="WardrobeAltar" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=383730923 instance=ExtResource("11_bt23p")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.6, 0.08, -10.64)
+script = ExtResource("10_22eue")
+hide_prompt = "Спрятаться в шкаф"
+look_yaw_limit = 25.0
+look_pitch_limit = 20.0
+
+[node name="WardrobeBasement" type="Area3D" parent="NavigationRegion3D/Furniture" unique_id=1208991107 instance=ExtResource("11_bt23p")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.96, -3, -1.2)
+script = ExtResource("10_22eue")
+hide_prompt = "Спрятаться в шкаф"
+look_yaw_limit = 25.0
+look_pitch_limit = 20.0
+
+[node name="Altar" type="StaticBody3D" parent="NavigationRegion3D/Furniture" unique_id=2093653413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58, -9)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.3, 1, 0.9)
+material = ExtResource("6_16sil")
+
+[node name="Lectern" type="StaticBody3D" parent="NavigationRegion3D/Furniture" unique_id=1025432822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -4.6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.5, 1.1, 0.45)
+material = ExtResource("6_16sil")
+
+[node name="CandleStandL" type="StaticBody3D" parent="NavigationRegion3D/Furniture" unique_id=600215950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0.6, -5.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="CandleStandR" type="StaticBody3D" parent="NavigationRegion3D/Furniture" unique_id=1786367449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0.6, -5.3)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Camp" type="Node3D" parent="NavigationRegion3D/Furniture" unique_id=1599115448]
+
+[node name="BagKostya" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=2081318103]
+transform = Transform3D(0.99026805, 0, 0.1391731, 0, 1, 0, -0.1391731, 0, 0.99026805, 2, 0.04, 5.6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.08, 1.9)
+material = ExtResource("12_tq6uy")
+cast_shadow = false
+
+[node name="BagGrisha" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=271745772]
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 3.1, 0.04, 6.1)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.08, 1.9)
+material = ExtResource("13_b60tw")
+cast_shadow = false
+
+[node name="BagKatya" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=1567881229]
+transform = Transform3D(0.17364822, 0, 0.9848077, 0, 1, 0, -0.9848077, 0, 0.17364822, 3.6, 0.04, 4.9)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.08, 1.9)
+material = ExtResource("14_rp7k2")
+cast_shadow = false
+
+[node name="BagSanya" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=1356486719]
+transform = Transform3D(0.9975641, 0, -0.06975647, 0, 1, 0, 0.06975647, 0, 0.9975641, 1, 0.04, 6.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.08, 1.9)
+material = ExtResource("12_tq6uy")
+cast_shadow = false
+
+[node name="Backpack1" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=497360007]
+transform = Transform3D(0.9396926, 0, 0.34202012, 0, 1, 0, -0.34202012, 0, 0.9396926, 2.7, 0.25, 7.5)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.38, 0.5, 0.26)
+material = ExtResource("13_b60tw")
+
+[node name="Backpack2" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=1065756901]
+transform = Transform3D(0.8528685, -0.15038373, -0.5, 0.17364818, 0.9848077, 0, 0.49240386, -0.08682409, 0.8660254, 4.2, 0.22, 6.9)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.34, 0.44, 0.24)
+material = ExtResource("14_rp7k2")
+
+[node name="Stove" type="StaticBody3D" parent="NavigationRegion3D/Furniture/Camp" unique_id=808027174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.1, 4.6)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.3, 0.2, 0.3)
+material = ExtResource("15_6mwiu")
+cast_shadow = false
+
+[node name="Yard" type="Node3D" parent="NavigationRegion3D" unique_id=1523015182]
+
+[node name="UAZ" type="Node3D" parent="NavigationRegion3D/Yard" unique_id=1818652946]
+transform = Transform3D(0.90630776, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.90630776, 9.5, 0, 14)
+
+[node name="Body" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=516046044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.9, 1.9, 4.4)
+material = ExtResource("15_6mwiu")
+
+[node name="Windshield" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=1933484848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -2.21)
+script = ExtResource("2_1xs2i")
+size = Vector3(1.6, 0.6, 0.04)
+material = ExtResource("16_7jubb")
+cast_shadow = false
+
+[node name="Wheel_2" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=548099410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.36, -1.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.28, 0.72, 0.72)
+material = ExtResource("16_7jubb")
+
+[node name="Wheel_3" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=1259993477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.36, -1.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.28, 0.72, 0.72)
+material = ExtResource("16_7jubb")
+
+[node name="Wheel_4" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=1661691609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 0.36, 1.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.28, 0.72, 0.72)
+material = ExtResource("16_7jubb")
+
+[node name="Wheel_5" type="StaticBody3D" parent="NavigationRegion3D/Yard/UAZ" unique_id=43705131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.36, 1.4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.28, 0.72, 0.72)
+material = ExtResource("16_7jubb")
+
+[node name="Pogost" type="Node3D" parent="NavigationRegion3D/Yard" unique_id=373542622]
+
+[node name="Cross_0" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=585008999]
+transform = Transform3D(-0.16186742, 0.16826563, 0.97236085, 0.22887541, 0.9648876, -0.12887184, -0.95990366, 0.20168935, -0.19469573, -4.1469994, 0, -21.374334)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_0" unique_id=1656993916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_0" unique_id=2119966398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_0" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1671667003]
+transform = Transform3D(-0.1963329, 0, 0.9805373, 0, 1, 0, -0.9805373, 0, -0.1963329, -4.1469994, 0.1, -20.474335)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_1" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1436648283]
+transform = Transform3D(0.8359544, 0.26659232, -0.47969648, -0.20949914, 0.9629087, 0.17004992, 0.5072379, -0.04165799, 0.86079866, 3.0185795, 0, -19.778622)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_1" unique_id=2060525844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_1" unique_id=1522971879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_1" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1300429243]
+transform = Transform3D(0.8735211, 0, -0.4867863, 0, 1, 0, 0.4867863, 0, 0.8735211, 3.0185795, 0.1, -18.878622)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_2" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=954430655]
+transform = Transform3D(-0.008035014, 0.1837355, -0.9829429, -0.021119157, 0.9827242, 0.18386726, 0.99974465, 0.022236302, -0.004015864, -0.66470814, 0, -20.820408)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_2" unique_id=1632998254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_2" unique_id=1924361929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_2" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=82145666]
+transform = Transform3D(-0.0040855175, 0, -0.99999166, 0, 1, 0, 0.99999166, 0, -0.0040855175, -0.66470814, 0.1, -19.920408)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_3" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=541825793]
+transform = Transform3D(0.03913653, 0.062694475, 0.99726516, 0.103348374, 0.9924233, -0.06644588, -0.9938749, 0.1056662, 0.032360632, 1.3614063, 0, -17.812607)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_3" unique_id=835295676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_3" unique_id=761040794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_3" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1567917451]
+transform = Transform3D(0.032432307, 0, 0.9994739, 0, 1, 0, -0.9994739, 0, 0.032432307, 1.3614063, 0.1, -16.912607)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_4" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1943091044]
+transform = Transform3D(0.69611377, 0.24159715, -0.67605954, -0.17290924, 0.97037643, 0.16873617, 0.6967984, -0.00056263804, 0.7172668, -3.9587307, 0, -15.23097)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_4" unique_id=803019130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_4" unique_id=1928738509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_4" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1676799974]
+transform = Transform3D(0.7277011, 0, -0.68589437, 0, 1, 0, 0.68589437, 0, 0.7277011, -3.9587307, 0.1, -14.330971)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_5" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=146331161]
+transform = Transform3D(-0.29418486, 0.13404603, -0.9463017, -0.20761597, 0.9575097, 0.20017703, 0.93292594, 0.2553564, -0.25385478, -4.022423, 0, -18.789185)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_5" unique_id=364769063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_5" unique_id=1241316919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_5" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1687736282]
+transform = Transform3D(-0.259099, 0, -0.9658508, 0, 1, 0, 0.9658508, 0, -0.259099, -4.022423, 0.1, -17.889185)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_6" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=957950700]
+transform = Transform3D(-0.38818282, -0.2258601, 0.8934771, -0.25123975, 0.95871633, 0.1331974, -0.88667506, -0.17277202, -0.42890224, -0.21868658, 0, -19.530716)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_6" unique_id=508042022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_6" unique_id=477020225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_6" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=463225814]
+transform = Transform3D(-0.43275833, 0, 0.90150994, 0, 1, 0, -0.90150994, 0, -0.43275833, -0.21868658, 0.1, -18.630716)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_7" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1247344916]
+transform = Transform3D(0.5764065, -0.015428665, 0.8170174, 0.0003564688, 0.9998264, 0.018629365, -0.817163, -0.010446846, 0.5763119, 2.4114113, 0, -20.899778)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_7" unique_id=1088075563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_7" unique_id=917439110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_7" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=512124750]
+transform = Transform3D(0.57641196, 0, 0.81715924, 0, 1, 0, -0.81715924, 0, 0.57641196, 2.4114113, 0.1, -19.999779)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Cross_8" type="Node3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=1879912638]
+transform = Transform3D(-0.8653271, -0.110118866, 0.4889609, -0.17614262, 0.98015076, -0.09098456, -0.46923628, -0.16485825, -0.86754775, 4.0815754, 0, -17.433775)
+
+[node name="Post" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_8" unique_id=300549024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.1, 1.5, 0.1)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Bar" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost/Cross_8" unique_id=2123084366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.6, 0.09, 0.09)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Mound_8" type="StaticBody3D" parent="NavigationRegion3D/Yard/Pogost" unique_id=556004078]
+transform = Transform3D(-0.87116104, 0, 0.4909974, 0, 1, 0, -0.4909974, 0, -0.87116104, 4.0815754, 0.1, -16.533775)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.8, 0.2, 1.6)
+material = ExtResource("3_sa8pe")
+surface = &"ground"
+cast_shadow = false
+
+[node name="Fence" type="Node3D" parent="NavigationRegion3D/Yard" unique_id=112287272]
+
+[node name="PostS_0" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=972875348]
+transform = Transform3D(0.98637706, -0.16450018, 0, 0.16450018, 0.98637706, 0, 0, 0, 1, -12, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_1" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1064179728]
+transform = Transform3D(0.9967831, 0.08014673, 0, -0.08014673, 0.9967831, 0, 0, 0, 1, -10, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_2" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1639346734]
+transform = Transform3D(0.999283, 0.0378603, 0, -0.0378603, 0.999283, 0, 0, 0, 1, -8, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_3" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1217683016]
+transform = Transform3D(0.98803097, -0.1542557, 0, 0.1542557, 0.98803097, 0, 0, 0, 1, -6, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_4" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=2033578448]
+transform = Transform3D(0.99911493, -0.04206302, 0, 0.04206302, 0.99911493, 0, 0, 0, 1, -4, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_5" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=875913609]
+transform = Transform3D(0.999917, 0.012886014, 0, -0.012886014, 0.999917, 0, 0, 0, 1, 0, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_6" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1927111750]
+transform = Transform3D(0.99987125, 0.01604712, 0, -0.01604712, 0.99987125, 0, 0, 0, 1, 4, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostS_7" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=551516534]
+transform = Transform3D(0.99974597, 0.022538854, 0, -0.022538854, 0.99974597, 0, 0, 0, 1, 6, 0.6, 13)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_8" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=2039360953]
+transform = Transform3D(1, 0, 0, 0, 0.9995369, 0.030431537, 0, -0.030431537, 0.9995369, -12, 0.6, -12)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_9" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1063664118]
+transform = Transform3D(1, 0, 0, 0, 0.9884507, 0.1515428, 0, -0.1515428, 0.9884507, -12, 0.6, -10)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_10" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=47886018]
+transform = Transform3D(1, 0, 0, 0, 0.99823457, -0.059394393, 0, 0.059394393, 0.99823457, -12, 0.6, -8)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_11" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1958968659]
+transform = Transform3D(1, 0, 0, 0, 0.98718435, 0.15958416, 0, -0.15958416, 0.98718435, -12, 0.6, -4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_12" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=331360174]
+transform = Transform3D(1, 0, 0, 0, 0.99892896, 0.046269722, 0, -0.046269722, 0.99892896, -12, 0.6, -2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_13" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1841477381]
+transform = Transform3D(1, 0, 0, 0, 0.99994445, -0.010539614, 0, 0.010539614, 0.99994445, -12, 0.6, 2)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="PostW_14" type="StaticBody3D" parent="NavigationRegion3D/Yard/Fence" unique_id=1360345367]
+transform = Transform3D(1, 0, 0, 0, 0.9934954, 0.11387237, 0, -0.11387237, 0.9934954, -12, 0.6, 4)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.12, 1.2, 0.12)
+material = ExtResource("6_16sil")
+cast_shadow = false
+
+[node name="Forest" type="Node3D" parent="NavigationRegion3D/Yard" unique_id=182107618]
+
+[node name="Tree_1" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=714220223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.732091, 0, 22.177448)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_1" unique_id=1364872898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0460086, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.092017, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_1" unique_id=1756364162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5506096, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_2" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1718189688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.540882, 0, 6.896866)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_2" unique_id=187947132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.687786, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.375572, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_2" unique_id=748739587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.1565647, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_3" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1111578942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.209101, 0, -10.6521225)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_3" unique_id=1618935237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3022566, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.604513, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_3" unique_id=1804857683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7324824, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_4" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1239834783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.452725, 0, 12.659836)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_4" unique_id=240181661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5037837, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.007567, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_4" unique_id=86904527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.954162, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_5" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1705808733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.281724, 0, 12.165435)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_5" unique_id=755199740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7727842, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.5455685, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_5" unique_id=94778552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1500626, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_6" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1754110518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.358934, 0, 0.16173662)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_6" unique_id=504203825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7959156, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.591831, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_6" unique_id=84148826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.275507, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_7" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1983890749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.488982, 0, 8.910289)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_7" unique_id=1394542684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.334058, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.668116, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_7" unique_id=312953204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8674636, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_8" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1981916779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.23032, 0, 9.739543)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_8" unique_id=1057503023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5664635, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.132927, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_8" unique_id=1356211947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.02311, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_9" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1420049943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.821189, 0, 20.100422)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_9" unique_id=1352724268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1576767, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.315353, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_9" unique_id=341445464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6734443, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_10" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1164473417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.275304, 0, -21.230011)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_10" unique_id=1278083313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5928402, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.1856804, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_10" unique_id=1581268104]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.952124, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_11" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=442925096]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.719276, 0, 3.0379481)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_11" unique_id=1457213989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7777343, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.555469, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_11" unique_id=1963869715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2555075, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_12" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1016764442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.559008, 0, -0.036148846)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_12" unique_id=491206496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0488105, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.097621, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_12" unique_id=1108773712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4536915, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_13" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1402663340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.298182, 0, -0.6747839)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_13" unique_id=621043137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6168308, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.2336617, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_13" unique_id=1736805873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9785137, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_14" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=135371518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.799172, 0, 12.995457)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_14" unique_id=133402058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5344448, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.0688896, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_14" unique_id=1138930845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8878894, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_15" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1200681993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.358119, 0, -9.147189)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_15" unique_id=361444866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3711166, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.742233, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_15" unique_id=1266022472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8082285, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_16" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=191887061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.371328, 0, -3.834378)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_16" unique_id=1293750734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.454537, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.909074, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_16" unique_id=509886824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.9999905, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_17" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1251312161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9477763, 0, 17.569439)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_17" unique_id=2129209080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.406147, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.812294, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_17" unique_id=936468945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8467617, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_18" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=803748698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.903164, 0, 0.97461957)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_18" unique_id=1537311268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.958055, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.91611, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_18" unique_id=1271748605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.3538604, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_19" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1871223892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.913365, 0, -20.705647)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_19" unique_id=1258793931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1274314, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.254863, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_19" unique_id=2045612989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5401745, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_20" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1357541989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.722132, 0, 9.685031)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_20" unique_id=2020504566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.4725904, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.945181, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_20" unique_id=2092730854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.01985, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_21" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=157279776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7953813, 0, 20.471313)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_21" unique_id=1306904720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6774778, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.3549557, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_21" unique_id=223345666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.0452256, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_22" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1928298927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.673689, 0, 14.46081)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_22" unique_id=1855847569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5612128, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.1224256, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_22" unique_id=249803276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.917334, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_23" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=679362247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.274597, 0, -0.067920715)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_23" unique_id=1991183872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.367831, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.735662, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_23" unique_id=1544160467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8046145, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_24" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1881748606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.562769, 0, -6.7798095)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_24" unique_id=556681294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.789961, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.579922, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_24" unique_id=910378197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.268957, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_25" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=792390226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.449574, 0, -9.743493)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_25" unique_id=2120035860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6696844, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.339369, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_25" unique_id=1562197779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.136653, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_26" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1554501493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.419513, 0, -8.0295515)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_26" unique_id=662480138]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3644233, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.728847, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_26" unique_id=1751508037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8008657, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_27" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=265413293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.239464, 0, 18.208477)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_27" unique_id=102022192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.472887, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.945774, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_27" unique_id=79203313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9201756, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_28" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=288633036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.711008, 0, 13.887716)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_28" unique_id=244922450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.738711, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.477422, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_28" unique_id=932319227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.212582, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_29" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=323289329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.968576, 0, 2.8764267)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_29" unique_id=1596692375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7066336, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.413267, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_29" unique_id=341661064]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.177297, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_30" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=242171647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.33342, 0, -13.091486)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_30" unique_id=2000115609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8422585, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.684517, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_30" unique_id=2109130284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.326484, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_31" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=888742081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.369871, 0, 18.53728)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_31" unique_id=1384280283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.384756, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.769512, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_31" unique_id=2095128632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.8232317, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_32" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=494807932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8445215, 0, 3.195934)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_32" unique_id=250979746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2023535, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.404707, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_32" unique_id=830674526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6225886, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_33" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=338210665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.904833, 0, 0.6471995)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_33" unique_id=301097579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7231574, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.446315, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_33" unique_id=29781868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.195473, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_34" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=2055767318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.582162, 0, -5.890799)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_34" unique_id=481808640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2113175, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.422635, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_34" unique_id=300745559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.632449, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_35" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=528520624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.476347, 0, 12.689482)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_35" unique_id=839136244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.545274, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.090548, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_35" unique_id=40919848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.999801, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_36" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=642881369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.728518, 0, 6.3687572)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_36" unique_id=250340908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1575394, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.315079, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_36" unique_id=2078423173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.573293, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_37" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1259225484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.607868, 0, 23.177555)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_37" unique_id=1421233638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.530819, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.061638, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_37" unique_id=688246874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8839006, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_38" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=244414642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.833347, 0, 15.350121)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_38" unique_id=1141374352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4410114, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.882023, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_38" unique_id=1036901702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.885113, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_39" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1443040563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4873571, 0, -24.25066)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_39" unique_id=2076615501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6916027, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.383205, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_39" unique_id=1999748655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.160763, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_40" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1356928214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.407129, 0, 19.1558)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_40" unique_id=1041992486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5013366, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 7.002673, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_40" unique_id=1446702303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.85147, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_41" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=225712103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.911098, 0, 8.49381)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_41" unique_id=968923903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.040399, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.080798, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_41" unique_id=532194512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.444439, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_42" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=937722314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.725105, 0, -18.316423)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_42" unique_id=1215880575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2947965, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 8.589593, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_42" unique_id=1129235932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.724276, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_43" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=410884720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.314093, 0, -7.894146)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_43" unique_id=1490414081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.4346595, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.869319, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_43" unique_id=179241613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.9781256, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_44" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=886314928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.131668, 0, 5.98666)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_44" unique_id=621287872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.3454514, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.690903, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_44" unique_id=1075774390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8799963, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_45" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=267295580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.511232, 0, 7.196304)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_45" unique_id=1758968106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.875136, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 9.750272, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_45" unique_id=905367522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.3626494, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Tree_46" type="Node3D" parent="NavigationRegion3D/Yard/Forest" unique_id=1229285743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4406805, 0, -4.1739025)
+
+[node name="Trunk" type="StaticBody3D" parent="NavigationRegion3D/Yard/Forest/Tree_46" unique_id=1666231782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.4985046, 0)
+script = ExtResource("2_1xs2i")
+size = Vector3(0.35, 10.997009, 0.35)
+material = ExtResource("17_dwul3")
+
+[node name="Crown" type="MeshInstance3D" parent="NavigationRegion3D/Yard/Forest/Tree_46" unique_id=1370081683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.048355, 0)
+material_override = ExtResource("13_b60tw")
+mesh = SubResource("CylinderMesh_32528")
+
+[node name="Doors" type="Node3D" parent="." unique_id=1608867553]
+
+[node name="MainDoor" type="Area3D" parent="Doors" unique_id=2024216000 instance=ExtResource("18_ykukf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 9.2)
+script = ExtResource("19_ui7lt")
+prompt = "Открыть дверь"
+
+[node name="BackDoor" type="Area3D" parent="Doors" unique_id=1091735260 instance=ExtResource("18_ykukf")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.2, 0, -7.8)
+script = ExtResource("19_ui7lt")
+prompt = "Открыть дверь"
+
+[node name="Pickups" type="Node3D" parent="." unique_id=1607226154]
+
+[node name="BatteryAltar" type="Area3D" parent="Pickups" unique_id=1877152797 instance=ExtResource("20_dqg4l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.08, -9)
+script = ExtResource("21_xv63i")
+pickup_id = "church_battery_altar"
+
+[node name="BatteryBasement" type="Area3D" parent="Pickups" unique_id=1297888943 instance=ExtResource("20_dqg4l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1, -2.3, 5.4)
+script = ExtResource("21_xv63i")
+pickup_id = "church_battery_basement"
+
+[node name="BatteryUaz" type="Area3D" parent="Pickups" unique_id=986834540 instance=ExtResource("20_dqg4l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4, 0, 15)
+script = ExtResource("21_xv63i")
+pickup_id = "yard_battery_uaz"
+
+[node name="FlashBackpack" type="Area3D" parent="Pickups" unique_id=1358662041 instance=ExtResource("22_3j6dm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15, 0, 7.15)
+script = ExtResource("21_xv63i")
+kind = 1
+pickup_id = "church_flash_backpack"
+
+[node name="FlashPogost" type="Area3D" parent="Pickups" unique_id=476513399 instance=ExtResource("22_3j6dm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0, -14.5)
+script = ExtResource("21_xv63i")
+kind = 1
+pickup_id = "yard_flash_pogost"
+
+[node name="Zones" type="Node3D" parent="." unique_id=1079507697]
+
+[node name="CreakyNave" type="Area3D" parent="Zones" unique_id=863326150 instance=ExtResource("23_q60df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2)
+script = ExtResource("24_umul0")
+
+[node name="CreakyIcon" type="Area3D" parent="Zones" unique_id=403540311 instance=ExtResource("23_q60df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.9)
+script = ExtResource("24_umul0")
+
+[node name="CreakyEntrance" type="Area3D" parent="Zones" unique_id=2080320366 instance=ExtResource("23_q60df")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.8)
+script = ExtResource("24_umul0")
+
+[node name="CreakyAltar" type="Area3D" parent="Zones" unique_id=1699731344 instance=ExtResource("23_q60df")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 0.08, -8.4)
+script = ExtResource("24_umul0")
+
+[node name="GrassPogost" type="Area3D" parent="Zones" unique_id=1934090765 instance=ExtResource("25_oo3j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -18.5)
+script = ExtResource("26_7w00n")
+size = Vector3(5, 1.2, 4)
+material = ExtResource("27_7isy3")
+
+[node name="GrassWest" type="Area3D" parent="Zones" unique_id=1338894776 instance=ExtResource("25_oo3j0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 3)
+script = ExtResource("26_7w00n")
+size = Vector3(3.5, 1.2, 6)
+material = ExtResource("27_7isy3")
+
+[node name="ChurchReverb" type="Area3D" parent="Zones" unique_id=915583214]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+reverb_bus_enabled = true
+reverb_bus_name = &"Church"
+reverb_bus_amount = 0.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Zones/ChurchReverb" unique_id=1609354270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
+shape = SubResource("BoxShape3D_4hhw1")
+
+[node name="Lights" type="Node3D" parent="." unique_id=1447943123]
+
+[node name="CampCandle" type="Node3D" parent="Lights" unique_id=1719178151 instance=ExtResource("28_fqqr1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0, 5.3)
+script = ExtResource("29_ip7g0")
+
+[node name="Lampada" type="OmniLight3D" parent="Lights" unique_id=1463484086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, -5.5)
+light_color = Color(0.9, 0.25, 0.15, 1)
+light_energy = 0.6
+omni_range = 3.5
+
+[node name="Glow" type="MeshInstance3D" parent="Lights/Lampada" unique_id=2029113580]
+material_override = ExtResource("30_dctf5")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_3gkam")
+
+[node name="Points" type="Node3D" parent="." unique_id=1841126486]
+
+[node name="BasementKnock" type="Marker3D" parent="Points" unique_id=1570279414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -1.2, -1.5)
+
+[node name="Patrol" type="Node3D" parent="Points" unique_id=2003814790]
+
+[node name="NaveCenter" type="Marker3D" parent="Points/Patrol" unique_id=312053115 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="NaveSouth" type="Marker3D" parent="Points/Patrol" unique_id=1150861851 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 7)
+
+[node name="NaveIcon" type="Marker3D" parent="Points/Patrol" unique_id=705342644 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -4)
+
+[node name="Altar" type="Marker3D" parent="Points/Patrol" unique_id=77503236 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.08, -9.5)
+
+[node name="Basement" type="Marker3D" parent="Points/Patrol" unique_id=685251673 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, -3, -1.5)
+
+[node name="BasementSouth" type="Marker3D" parent="Points/Patrol" unique_id=1449480401 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 5)
+
+[node name="Pogost" type="Marker3D" parent="Points/Patrol" unique_id=638265661 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+
+[node name="YardEast" type="Marker3D" parent="Points/Patrol" unique_id=787575128 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -2)
+
+[node name="YardWest" type="Marker3D" parent="Points/Patrol" unique_id=985145265 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -2)
+
+[node name="Uaz" type="Marker3D" parent="Points/Patrol" unique_id=6687720 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 12.5)
+
+[node name="YardSouthWest" type="Marker3D" parent="Points/Patrol" unique_id=2021524031 groups=["storozh_patrol"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 13)
+
+[node name="Spawns" type="Node3D" parent="Points" unique_id=24339590]
+
+[node name="WindowW-3" type="Marker3D" parent="Points/Spawns" unique_id=2088219150 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, -3)
+metadata/window = true
+
+[node name="WindowW1" type="Marker3D" parent="Points/Spawns" unique_id=2030194207 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 1)
+metadata/window = true
+
+[node name="WindowW5" type="Marker3D" parent="Points/Spawns" unique_id=1005303321 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 5)
+metadata/window = true
+
+[node name="WindowE-3" type="Marker3D" parent="Points/Spawns" unique_id=305517191 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, -3)
+metadata/window = true
+
+[node name="WindowE1" type="Marker3D" parent="Points/Spawns" unique_id=1701349763 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 1)
+metadata/window = true
+
+[node name="WindowE5" type="Marker3D" parent="Points/Spawns" unique_id=2049528200 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 5)
+metadata/window = true
+
+[node name="BasementDeep" type="Marker3D" parent="Points/Spawns" unique_id=1674593722 groups=["storozh_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, -3, -2.2)
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=932042832 instance=ExtResource("31_cmcmf")]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 1.6, 0, 4.6)
+collision_layer = 2
+collision_mask = 17
+floor_snap_length = 0.3
+script = ExtResource("32_sbhrp")
+
+[node name="Storozh" type="CharacterBody3D" parent="." unique_id=1425608739 instance=ExtResource("33_dlk0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -3, -2.2)
+collision_layer = 4
+script = ExtResource("34_l245a")
