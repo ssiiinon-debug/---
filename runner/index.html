@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Rail Rush</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Яндекс Игры SDK: на платформе отдаётся по этому пути. Локально его нет — включится мок. -->
+  <script src="/sdk.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "./js/vendor/three.module.min.js", "three/addons/": "./js/vendor/addons/" } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <!-- HUD во время забега -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="pill coins"><i class="coin-ico"></i><b id="hudCoins">0</b></div>
+        <div id="powers"></div>
+      </div>
+      <div class="hud-right">
+        <div class="pill score"><b id="hudScore">0</b><span id="hudMult" class="mult">x1</span></div>
+        <button class="round-btn" id="btnPause" aria-label="pause">II</button>
+      </div>
+      <div id="hint" class="hint hidden"></div>
+    </div>
+
+    <!-- Главное меню -->
+    <div id="menu" class="screen">
+      <div class="logo">
+        <div class="logo-top">RAIL</div>
+        <div class="logo-bottom">RUSH</div>
+        <div class="logo-sub" data-i18n="subtitle"></div>
+      </div>
+      <div class="menu-stats">
+        <div class="pill"><i class="coin-ico"></i><b id="menuCoins">0</b></div>
+        <div class="pill"><span data-i18n="best"></span>&nbsp;<b id="menuBest">0</b></div>
+      </div>
+      <div class="menu-bottom">
+        <div class="char-name" id="charName"></div>
+        <button class="btn big play" id="btnPlay" data-i18n="play"></button>
+        <div class="row">
+          <button class="btn" id="btnChars" data-i18n="characters"></button>
+          <button class="btn" id="btnUpg" data-i18n="upgrades"></button>
+          <button class="btn icon" id="btnSound" aria-label="sound">♪</button>
+        </div>
+        <div class="controls-hint" data-i18n="controls"></div>
+      </div>
+    </div>
+
+    <!-- Магазин -->
+    <div id="shop" class="screen hidden">
+      <div class="panel shop-panel">
+        <div class="panel-head">
+          <h2 id="shopTitle"></h2>
+          <div class="pill"><i class="coin-ico"></i><b id="shopCoins">0</b></div>
+        </div>
+        <div id="shopList" class="shop-list"></div>
+        <button class="btn" id="btnShopBack" data-i18n="back"></button>
+      </div>
+    </div>
+
+    <!-- Пауза -->
+    <div id="pause" class="screen dim hidden">
+      <div class="panel small">
+        <h2 data-i18n="paused"></h2>
+        <button class="btn big play" id="btnResume" data-i18n="resume"></button>
+        <button class="btn" id="btnPauseMenu" data-i18n="toMenu"></button>
+      </div>
+    </div>
+
+    <!-- Конец забега -->
+    <div id="over" class="screen dim hidden">
+      <div class="panel small">
+        <h2 id="overTitle"></h2>
+        <div class="over-score" id="overScore">0</div>
+        <div class="over-line"><span data-i18n="best"></span> <b id="overBest">0</b></div>
+        <div class="over-line"><i class="coin-ico"></i> <b id="overCoins">0</b></div>
+        <button class="btn big ad" id="btnRevive"><span class="ad-tag">AD</span> <span data-i18n="revive"></span></button>
+        <button class="btn ad" id="btnDouble"><span class="ad-tag">AD</span> <span data-i18n="doubleCoins"></span></button>
+        <div class="row">
+          <button class="btn play" id="btnAgain" data-i18n="again"></button>
+          <button class="btn" id="btnOverMenu" data-i18n="toMenu"></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="adMock" class="screen dim hidden"><div class="panel small"><h2>Реклама…</h2></div></div>
+    <div id="loading" class="screen"><div class="loader"></div></div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
