@@ -336,3 +336,89 @@ export function makeBlob(size = 1.3) {
   m.rotation.x = -Math.PI / 2; m.renderOrder = 1;
   return m;
 }
+
+// ---------- магазин на фоне главного меню ----------
+// Длинный одноэтажный ночной магазин: витрины со светом, полосатый козырёк, неоновые вывески.
+export function makeStore() {
+  const g = new THREE.Group();
+  const W = 52, H = 4.6, D = 6, Z = 9.5;           // Z — линия фасада (смотрит на камеру меню)
+  const WY = 1.65, WH = 2.1;                         // центр и высота витрин
+  const b = new B(), gl = new B();
+  b.box('#3a2a36', 0, H / 2, Z + D / 2, W, H, D);                       // корпус
+  b.box('#24181f', 0, 0.3, Z - 0.03, W, 0.6, 0.14);                     // цоколь
+  b.box('#5a4e56', 0, 0.12, Z - 0.9, W, 0.24, 1.8);                     // тротуар
+  b.box('#1a1218', 0, 3.55, Z - 0.12, W, 0.95, 0.25);                   // полоса под вывески
+  b.box('#2a1f28', 0, H + 0.15, Z + D / 2, W + 0.4, 0.3, D + 0.3);      // парапет
+  for (let x = -18; x <= 18; x += 9) {                                   // кондиционеры на крыше
+    b.box('#5a5560', x, H + 0.7, Z + 1.5, 1.6, 0.9, 1.0);
+    b.cyl('#3a3540', x, H + 0.7, Z + 0.98, 0.35, 0.05, Math.PI / 2, 0, 0);
+  }
+  const bays = [];
+  for (let x = -W / 2 + 2; x < W / 2; x += 4) bays.push(x);
+  for (const x of bays) {
+    const door = Math.abs(x) < 0.1, h = door ? 2.5 : WH, y = door ? 1.25 + 0.02 : WY;
+    b.box('#2a1f28', x - 2, 1.6, Z - 0.08, 0.32, 3.2, 0.18);            // пилястра
+    b.box('#141016', x, y + h / 2 + 0.06, Z - 0.13, 3.5, 0.12, 0.08);   // рама: верх
+    b.box('#141016', x, y - h / 2 - 0.06, Z - 0.13, 3.5, 0.12, 0.08);   // низ
+    b.box('#141016', x, y, Z - 0.15, 0.07, h, 0.05);                    // импост
+    if (door) { b.box('#cfd5dd', -0.22, 1.3, Z - 0.2, 0.05, 0.55, 0.05); b.box('#cfd5dd', 0.22, 1.3, Z - 0.2, 0.05, 0.55, 0.05); }
+  }
+  b.box('#2a1f28', W / 2, 1.6, Z - 0.08, 0.32, 3.2, 0.18);
+  for (const x of [-10, 10]) { b.box('#141016', x, 3.0, Z - 0.25, 0.15, 0.3, 0.3); gl.box('#ffcf6b', x, 2.82, Z - 0.35, 0.32, 0.2, 0.32); }
+  // автомат с газировкой, урна, ящики
+  b.box('#8a1f2e', -6.5, 1.05, Z - 0.75, 1.1, 2.1, 0.8);
+  gl.box('#ff6a7a', -6.5, 1.35, Z - 1.16, 0.8, 1.2, 0.02);
+  b.box('#2a2a30', 6.2, 0.45, Z - 0.8, 0.6, 0.9, 0.6);
+  b.box('#6a4a32', -9.5, 0.5, Z - 0.9, 1.0, 0.7, 0.8); b.box('#7a5a3a', -9.3, 1.15, Z - 0.9, 0.8, 0.6, 0.7);
+  g.add(new THREE.Mesh(b.geo(), MAT.toon), new THREE.Mesh(gl.geo(), MAT.glow));
+
+  // интерьер витрин (нарисован на canvas)
+  const inside = canvasTex(256, 160, (x, w, h) => {
+    const grd = x.createLinearGradient(0, 0, 0, h); grd.addColorStop(0, '#fff3d0'); grd.addColorStop(1, '#f2c27a');
+    x.fillStyle = grd; x.fillRect(0, 0, w, h);
+    const r = rng(42), cols = ['#e5322d', '#2d7dd2', '#3aa35a', '#ffcf3a', '#ff7ab8', '#8a5cff', '#ffffff', '#ff8a1f'];
+    for (let row = 0; row < 3; row++) {
+      const sy = 46 + row * 44;
+      x.fillStyle = '#7a5a4a'; x.fillRect(6, sy, w - 12, 5);
+      for (let px = 10; px < w - 14;) {
+        const pw = 7 + r() * 12, ph = 14 + r() * 18;
+        x.fillStyle = cols[Math.floor(r() * cols.length)]; x.fillRect(px, sy - ph, pw, ph);
+        x.fillStyle = 'rgba(255,255,255,0.35)'; x.fillRect(px + 1, sy - ph + 2, 2, ph - 4);
+        px += pw + 2;
+      }
+    }
+    x.fillStyle = 'rgba(255,255,255,0.9)'; for (let i = 0; i < 3; i++) x.fillRect(20 + i * 80, 4, 50, 4);
+    x.strokeStyle = 'rgba(255,255,255,0.3)'; x.lineWidth = 6;
+    x.beginPath(); x.moveTo(30, h); x.lineTo(110, 0); x.moveTo(60, h); x.lineTo(140, 0); x.stroke();
+  });
+  const glassMat = new THREE.MeshBasicMaterial({ map: inside }), glassGeo = new THREE.PlaneGeometry(1, 1);
+  for (const x of bays) {
+    const door = Math.abs(x) < 0.1;
+    const m = new THREE.Mesh(glassGeo, glassMat);
+    m.scale.set(3.5, door ? 2.5 : WH, 1); m.position.set(x, door ? 1.27 : WY, Z - 0.11); m.rotation.y = Math.PI;
+    g.add(m);
+  }
+  // полосатый козырёк
+  const stripes = canvasTex(64, 32, (x, w, h) => {
+    for (let i = 0; i < 4; i++) { x.fillStyle = i % 2 ? '#f4f4f4' : '#c41e2a'; x.fillRect(i * 16, 0, 16, h); }
+    x.fillStyle = 'rgba(0,0,0,0.25)'; x.fillRect(0, h - 5, w, 5);
+  });
+  stripes.wrapS = THREE.RepeatWrapping; stripes.repeat.set(W / 2, 1);
+  const awn = new THREE.Mesh(new THREE.PlaneGeometry(W, 1.1), new THREE.MeshToonMaterial({ map: stripes, gradientMap: gradTex, side: THREE.DoubleSide }));
+  awn.position.set(0, 2.88, Z - 0.5); awn.rotation.set(-1.0, Math.PI, 0); g.add(awn);
+  // неоновые вывески
+  const neon = (text, color, wpx) => canvasTex(wpx, 128, (x, w, h) => {
+    x.fillStyle = '#120a12'; x.fillRect(0, 0, w, h);
+    x.font = '900 86px "Arial Black", Impact, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.shadowColor = color; x.shadowBlur = 24; x.fillStyle = color;
+    x.fillText(text, w / 2, h / 2 + 4); x.fillText(text, w / 2, h / 2 + 4);
+    x.shadowBlur = 0; x.fillStyle = '#ffffff'; x.globalAlpha = 0.55; x.fillText(text, w / 2, h / 2 + 4);
+  });
+  const signs = [['МАГАЗИН', '#ff3ea5', 640, 0, 8], ['ПРОДУКТЫ', '#ffd23f', 640, -14, 6], ['24 ЧАСА', '#4ae0ff', 512, 14, 5]];
+  for (const [txt, col, px, x, w] of signs) {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, 0.8), new THREE.MeshBasicMaterial({ map: neon(txt, col, px), fog: false }));
+    m.position.set(x, 3.55, Z - 0.26); m.rotation.y = Math.PI; g.add(m);
+    if (txt === '24 ЧАСА') g.userData.flicker = m.material;
+  }
+  return g;
+}

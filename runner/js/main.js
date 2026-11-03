@@ -3,7 +3,7 @@ import { CFG } from './config.js';
 import { SDK } from './sdk.js';
 import { Audio } from './audio.js';
 import { t, setLang, applyI18n } from './i18n.js';
-import { makeSky, makeBlob } from './models.js';
+import { makeSky, makeBlob, makeStore } from './models.js';
 import { makeCharacter, animateCharacter, GUARD_SKIN } from './characters.js';
 import { World } from './world.js';
 
@@ -29,6 +29,7 @@ sun.position.set(-6, 12, 5); scene.add(sun); scene.add(sun.target);
 const sky = makeSky(); scene.add(sky);
 
 const world = new World(scene);
+const store = makeStore(); scene.add(store);
 
 let hero = null;
 const heroShadow = makeBlob(1.4); scene.add(heroShadow);
@@ -197,7 +198,7 @@ function physics(dt) {
 
 function die(kind) {
   deathKind = kind; state = 'dying'; dieT = 0; P.fallK = 0; shake = 0.5;
-  Audio.crash(); Audio.stopMusic(); SDK.gameplayStop();
+  Audio.crash(); SDK.gameplayStop();
 }
 
 // ---------- игровой цикл ----------
@@ -233,6 +234,7 @@ function tick(dt) {
 
   updateActors(dt);
   updateCamera(dt);
+  updateStore();
   if (state === 'run' || state === 'dying') updateHud();
 }
 
@@ -279,6 +281,15 @@ function updateActors(dt) {
   else { animateCharacter(guard, animT * 0.95 + 1.5, 'run'); guard.rotation.y = 0; }
   guardShadow.visible = guard.visible;
   guardShadow.position.set(guard.position.x, 0.03, guard.position.z);
+}
+
+function updateStore() {
+  // магазин — только фон главного меню; в забеге камера уходит сквозь него, поэтому прячем
+  store.visible = state === 'menu' || camBlend < 0.35;
+  if (store.visible) {
+    const on = Math.sin(time * 23) + Math.sin(time * 7.3) > -1.6;
+    store.userData.flicker.color.setScalar(on ? 1 : 0.35);
+  }
 }
 
 function updateCamera(dt) {
@@ -332,7 +343,7 @@ function refreshMenu() {
 }
 
 function toMenu() {
-  state = 'menu'; SDK.gameplayStop(); Audio.stopMusic();
+  state = 'menu'; SDK.gameplayStop(); if (save.sound) Audio.startMusic();
   world.reset(); resetPlayer(); world.generate(0, CFG.SPEED0);
   guardS = -2.2; refreshMenu(); show('menu');
 }
@@ -352,7 +363,7 @@ function startRun() {
 
 function pause() {
   if (state !== 'run') return;
-  state = 'paused'; show('pause'); Audio.stopMusic(); SDK.gameplayStop();
+  state = 'paused'; show('pause'); Audio.pauseMusic(); SDK.gameplayStop();
 }
 function resume() {
   if (state !== 'paused') return;
@@ -441,11 +452,13 @@ function renderShop() {
 
 // ---------- кнопки ----------
 $('btnPlay').onclick = startRun;
+window.addEventListener('pointerdown', () => Audio.unlock(), { once: true });
+window.addEventListener('keydown', () => Audio.unlock(), { once: true });
 $('btnChars').onclick = () => { Audio.unlock(); Audio.click(); openShop('chars'); };
 $('btnUpg').onclick = () => { Audio.unlock(); Audio.click(); openShop('upg'); };
 $('btnShopBack').onclick = () => { Audio.click(); refreshMenu(); show('menu'); };
 $('btnSound').onclick = () => {
-  save.sound = !save.sound; Audio.setEnabled(save.sound); if (save.sound) { Audio.unlock(); Audio.click(); }
+  save.sound = !save.sound; Audio.setEnabled(save.sound); if (save.sound) { Audio.unlock(); Audio.click(); Audio.startMusic(); }
   refreshMenu(); persist();
 };
 $('btnPause').onclick = pause;
@@ -468,7 +481,7 @@ $('btnOverMenu').onclick = async () => { await maybeInterstitial(); toMenu(); };
 SDK.onPause = () => { pause(); Audio.mute(true); };
 SDK.onResume = () => { Audio.mute(false); };
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) { pause(); Audio.mute(true); } else Audio.mute(false);
+  if (document.hidden) { pause(); Audio.mute(true); } else { Audio.mute(false); if (state === 'paused') Audio.pauseMusic(); }
 });
 
 // ---------- старт ----------

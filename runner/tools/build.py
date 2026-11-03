@@ -18,7 +18,7 @@ DIST = ROOT.parent / "dist"
 def main() -> int:
     ver = re.search(r"VERSION:\s*'([^']+)'", (ROOT / "js" / "config.js").read_text(encoding="utf-8"))
     ver = ver.group(1) if ver else "dev"
-    files = [ROOT / "index.html"] + sorted(p for d in ("css", "js") for p in (ROOT / d).rglob("*") if p.is_file())
+    files = [ROOT / "index.html"] + sorted(p for d in ("css", "js", "audio") for p in (ROOT / d).rglob("*") if p.is_file())
 
     bad = []
     url_re = re.compile(r"""(?:src|href)\s*=\s*["'](?:https?:)?//""", re.I)

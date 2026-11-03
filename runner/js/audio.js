@@ -1,6 +1,11 @@
-// Все звуки синтезируются WebAudio — без файлов.
-let ctx = null, master = null, musicGain = null, enabled = true, muted = false;
-let musicOn = false, nextBeat = 0, beat = 0, musicTimer = null;
+// Звуки синтезируются WebAudio, саундтрек — mp3 из папки audio/
+let ctx = null, master = null, enabled = true, muted = false;
+const TRACKS = ['audio/track1.mp3', 'audio/track2.mp3', 'audio/track3.mp3'];
+let music = null, wantMusic = false, trackIdx = Math.floor(Math.random() * TRACKS.length);
+function playMusic() {
+  if (!music || !wantMusic || !enabled || muted) return;
+  const p = music.play(); if (p && p.catch) p.catch(() => { /* автоплей запрещён до первого касания */ });
+}
 
 function ac() {
   if (!ctx) {
@@ -8,7 +13,6 @@ function ac() {
     if (!C) return null;
     ctx = new C();
     master = ctx.createGain(); master.gain.value = 0.5; master.connect(ctx.destination);
-    musicGain = ctx.createGain(); musicGain.gain.value = 0.22; musicGain.connect(master);
   }
   if (ctx.state === 'suspended') ctx.resume();
   return ctx;
@@ -40,10 +44,10 @@ function noise(dur, vol = 0.3, freq = 1200, when = 0, out = null) {
 
 let coinStep = 0, lastCoin = 0;
 export const Audio = {
-  unlock() { ac(); },
+  unlock() { ac(); playMusic(); },
   setEnabled(v) { enabled = v; if (!v) this.stopMusic(); },
   get enabled() { return enabled; },
-  mute(v) { muted = v; if (master) master.gain.value = v ? 0 : 0.5; },
+  mute(v) { muted = v; if (master) master.gain.value = v ? 0 : 0.5; if (v) { if (music) music.pause(); } else playMusic(); },
 
   coin() {
     const now = performance.now();
@@ -63,24 +67,19 @@ export const Audio = {
   buy() { [784, 988, 1318].forEach((f, i) => tone(f, 0.1, 'square', 0.12, 0, i * 0.07)); },
   whistle() { tone(1800, 0.35, 'sine', 0.15, 2000); tone(1700, 0.25, 'sine', 0.12, 0, 0.4); },
 
-  // Простой бит 128 bpm: бочка, хэт, бас
+  // Саундтрек: три трека по кругу (файлы в audio/)
   startMusic() {
-    const c = ac(); if (!c || !enabled || musicOn) return;
-    musicOn = true; nextBeat = c.currentTime + 0.1; beat = 0;
-    const bass = [55, 55, 65.4, 49];
-    const step = 60 / 128 / 2;
-    musicTimer = setInterval(() => {
-      if (!musicOn || muted) { nextBeat = c.currentTime + 0.1; return; }
-      while (nextBeat < c.currentTime + 0.25) {
-        const w = nextBeat - c.currentTime, b = beat % 16;
-        if (b % 4 === 0) tone(110, 0.18, 'sine', 0.9, 40, w, musicGain);
-        if (b % 2 === 1) noise(0.04, 0.25, 8000, w, musicGain);
-        if (b % 8 === 4) noise(0.12, 0.4, 1800, w, musicGain);
-        const bn = bass[Math.floor(beat / 16) % 4];
-        if (b % 4 !== 2) tone(bn * (b % 8 === 6 ? 2 : 1), step * 0.9, 'triangle', 0.5, 0, w, musicGain);
-        nextBeat += step; beat++;
-      }
-    }, 80);
+    if (!enabled) return;
+    wantMusic = true;
+    if (!music) {
+      music = new window.Audio();
+      music.volume = 0.6; music.preload = 'auto';
+      music.addEventListener('ended', () => { trackIdx = (trackIdx + 1) % TRACKS.length; music.src = TRACKS[trackIdx]; playMusic(); });
+      music.src = TRACKS[trackIdx];
+    }
+    playMusic();
   },
-  stopMusic() { musicOn = false; if (musicTimer) clearInterval(musicTimer); musicTimer = null; },
+  stopMusic() { wantMusic = false; if (music) music.pause(); },
+  pauseMusic() { if (music) music.pause(); },
+  nextTrack() { if (!music) return; trackIdx = (trackIdx + 1) % TRACKS.length; music.src = TRACKS[trackIdx]; playMusic(); },
 };

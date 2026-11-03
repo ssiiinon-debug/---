@@ -1,6 +1,6 @@
 const DICT = {
   ru: {
-    subtitle: 'Тригот против Охранника',
+    subtitle: 'Тригот против дровосека в индислиз',
     play: 'ИГРАТЬ', characters: 'Герои', upgrades: 'Бонусы', back: 'Назад',
     best: 'Рекорд:', paused: 'Пауза', resume: 'Продолжить', toMenu: 'Меню',
     revive: 'Продолжить', doubleCoins: 'Удвоить монеты', again: 'Ещё раз',
@@ -16,7 +16,7 @@ const DICT = {
     pd_shield: 'Спасает от одного удара', sec: 'с',
   },
   en: {
-    subtitle: '3goth vs the Guard',
+    subtitle: '3goth vs the indie sleaze Lumberjack',
     play: 'PLAY', characters: 'Heroes', upgrades: 'Power-ups', back: 'Back',
     best: 'Best:', paused: 'Paused', resume: 'Resume', toMenu: 'Menu',
     revive: 'Continue', doubleCoins: 'Double coins', again: 'Again',

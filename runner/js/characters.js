@@ -341,7 +341,8 @@ function buildLeg(sk, side) {
   b.add(GEO.box, c, 0, by - 0.05, -0.07, 0.22, 0.15, 0.34);
   b.add(GEO.sph, c, 0, by - 0.06, -0.22, 0.22, 0.15, 0.18);
   b.box(sole, 0, by - 0.13, -0.08, 0.26, 0.07, 0.44);
-  b.box('#3a3a40', 0, by - 0.105, -0.08, 0.265, 0.015, 0.445);
+  b.box('#2e2e34', 0, by - 0.105, -0.08, 0.265, 0.015, 0.445);
+  for (let i = 0; i < 4; i++) b.box('#0c0c0e', 0, by - 0.168, -0.26 + i * 0.12, 0.24, 0.02, 0.05);
   for (let i = 0; i < 4; i++) {
     const y = by + 0.03 - i * 0.035, z = -0.1 - i * 0.03;
     b.box(lace, 0, y, z, 0.12, 0.012, 0.015, 0, 0, 0.35);
@@ -389,8 +390,8 @@ export function animateCharacter(ch, t, mode, k = 0) {
   P.knL.rotation.set(0, 0, 0); P.knR.rotation.set(0, 0, 0);
   if (mode === 'run') {
     P.legL.rotation.x = s * 0.85; P.legR.rotation.x = -s * 0.85;
-    P.knL.rotation.x = -(0.25 + Math.max(0, -Math.sin(t - 0.6)) * 1.5);
-    P.knR.rotation.x = -(0.25 + Math.max(0, Math.sin(t - 0.6)) * 1.5);
+    P.knL.rotation.x = -(0.25 + Math.max(0, -Math.sin(t - 0.6)) * 1.25);
+    P.knR.rotation.x = -(0.25 + Math.max(0, Math.sin(t - 0.6)) * 1.25);
     P.armL.rotation.x = -s * 0.8; P.armR.rotation.x = s * 0.8;
     P.elL.rotation.x = 1.25; P.elR.rotation.x = 1.25;
     if (P.weapon) { P.armR.rotation.x = 2.0 + s * 0.25; P.elR.rotation.x = 0.4; }
