@@ -21,7 +21,8 @@ export class World {
     this.segGeos = [makeSegmentGeo(0), makeSegmentGeo(1)];
     this.segs = [];
     for (let i = 0; i < 6; i++) {
-      const m = new THREE.Mesh(this.segGeos[0], MAT.toon);
+      const m = new THREE.Group();
+      m.add(new THREE.Mesh(this.segGeos[0].geo, MAT.toon), new THREE.Mesh(this.segGeos[0].glow, MAT.glow));
       this.root.add(m); this.segs.push(m);
     }
     // монеты — один InstancedMesh
@@ -49,7 +50,8 @@ export class World {
   placeSeg(m, idx) {
     m.position.set(0, 0, -(idx - 1) * SEG_LEN);
     // каждые 3 куска — смена пейзажа
-    m.geometry = this.segGeos[Math.floor(idx / 3) % 2];
+    const g = this.segGeos[Math.floor(idx / 3) % 2];
+    m.children[0].geometry = g.geo; m.children[1].geometry = g.glow;
     m.userData.idx = idx;
   }
 

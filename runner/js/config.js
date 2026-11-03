@@ -41,23 +41,25 @@ export const CFG = {
 
   INTERSTITIAL_EVERY: 2,  // показывать межстраничную рекламу раз в N забегов
 
-  // Персонажи (собраны из примитивов кодом). Цвета — hex.
+  // Персонажи (собраны кодом). Тригот — по аутфиту: шег, бомбер с костями, джинсы в заплатках, берцы.
   SKINS: [
-    { id: 'ginger', price: 0,
-      skin: '#f2c19b', hair: '#f08a2c', hair2: '#ffb050', hairStyle: 'curly',
-      jacket: '#d62828', sleeve: '#1d1d24', trim: '#ffffff', inner: '#18181e',
-      pants: '#8fb7e0', pants2: '#d7e7f7', shoes: '#141418', sole: '#ffffff', glasses: false, letter: '#ffffff' },
-    { id: 'shadow', price: 1500,
-      skin: '#e8b996', hair: '#121216', hair2: '#2a2a33', hairStyle: 'long',
-      jacket: '#1a1a20', sleeve: '#1a1a20', trim: '#3a3a44', inner: '#0e0e12',
-      pants: '#22222a', pants2: '#3a3a44', shoes: '#0e0e10', sole: '#2a2a30', glasses: true, letter: '#9a9aa8' },
-    { id: 'neon', price: 4000,
-      skin: '#c98b62', hair: '#ff4fb0', hair2: '#ff9ad6', hairStyle: 'bun',
-      jacket: '#18d6c8', sleeve: '#7a3cff', trim: '#ffffff', inner: '#ffe04a',
-      pants: '#2b2b6e', pants2: '#4545a0', shoes: '#ffffff', sole: '#ff4fb0', glasses: false, letter: '#7a3cff' },
-    { id: 'sport', price: 8000,
-      skin: '#f0c6a4', hair: '#5a3a22', hair2: '#7a5232', hairStyle: 'cap',
-      jacket: '#1f4fd1', sleeve: '#1f4fd1', trim: '#ffffff', inner: '#ffffff',
-      pants: '#1f4fd1', pants2: '#ffffff', shoes: '#ffffff', sole: '#1f4fd1', glasses: false, letter: '#ffd23f', cap: '#e5322d' },
+    { id: 'trigot', price: 0, top: 'varsity', sleeveType: 'leather', pantsType: 'denim', hairStyle: 'shag',
+      skin: '#f6d3bd', skinDark: '#e4b49a', eye: '#4a3a2a', liner: true, piercing: true,
+      hair: '#f2865e', hair2: '#ffa684', brow: '#c8603e',
+      jacket: '#c41e2a', sleeve: '#121216', rib: ['#c41e2a', '#f4f4f4', '#141418'], inner: '#141418',
+      text: 'SUPREME', textFill: '#141418', textEdge: '#ffffff', backText: '3GOTH', backSub: '2002',
+      pants: '#8fb2d6', patch: ['#4f73a6', '#6d90bf', '#b4cde8', '#3b5683'], boots: '#121214' },
+    { id: 'trigot_night', price: 2000, top: 'varsity', sleeveType: 'leather', pantsType: 'denim', hairStyle: 'shag',
+      skin: '#f6d3bd', skinDark: '#e4b49a', eye: '#6a8a9a', liner: true, piercing: true,
+      hair: '#e9e2d6', hair2: '#fffaf0', brow: '#b0a89a',
+      jacket: '#18181f', sleeve: '#ececf2', rib: ['#18181f', '#f4f4f4', '#7a1c2a'], inner: '#7a1c2a',
+      text: '3GOTH', textSize: 108, textFill: '#f4f4f4', textEdge: '#7a1c2a', backText: 'SURFERS', backSub: '2002',
+      pants: '#3e4a66', patch: ['#2a3348', '#5a6888', '#22283a'], boots: '#121214' },
+    { id: 'trigot_pink', price: 5000, top: 'varsity', sleeveType: 'leather', pantsType: 'denim', hairStyle: 'shag',
+      skin: '#f6d3bd', skinDark: '#e4b49a', eye: '#6a3a5a', liner: true, piercing: true,
+      hair: '#ff5fa8', hair2: '#ff9ad0', brow: '#c84a86',
+      jacket: '#5a2a8a', sleeve: '#121216', rib: ['#5a2a8a', '#ff9ad0', '#141418'], inner: '#141418',
+      text: 'SUPREME', textFill: '#141418', textEdge: '#ff9ad0', backText: '3GOTH', backSub: '2002',
+      pants: '#2c2c34', patch: ['#45454f', '#1c1c22', '#5a5a66'], boots: '#121214' },
   ],
 };

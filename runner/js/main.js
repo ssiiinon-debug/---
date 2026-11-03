@@ -3,7 +3,8 @@ import { CFG } from './config.js';
 import { SDK } from './sdk.js';
 import { Audio } from './audio.js';
 import { t, setLang, applyI18n } from './i18n.js';
-import { makeCharacter, animateCharacter, GUARD_SKIN, makeSky, makeBlob } from './models.js';
+import { makeSky, makeBlob } from './models.js';
+import { makeCharacter, animateCharacter, GUARD_SKIN } from './characters.js';
 import { World } from './world.js';
 
 const $ = (id) => document.getElementById(id);
@@ -11,7 +12,7 @@ const LANES = CFG.LANES;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 // ---------- сохранение ----------
-const DEFAULT_SAVE = { coins: 0, best: 0, skin: 'ginger', owned: ['ginger'], upg: { magnet: 0, x2: 0, sneakers: 0, shield: 0 }, sound: true, runs: 0 };
+const DEFAULT_SAVE = { coins: 0, best: 0, skin: 'trigot', owned: ['trigot'], upg: { magnet: 0, x2: 0, sneakers: 0, shield: 0 }, sound: true, runs: 0 };
 let save = structuredClone(DEFAULT_SAVE);
 const persist = (flush) => SDK.save(save, flush);
 
@@ -20,10 +21,10 @@ const canvas = $('game');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: window.devicePixelRatio < 2, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xcdeeff, 70, 175);
+scene.fog = new THREE.Fog(0xb8344f, 55, 170);
 const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 900);
-scene.add(new THREE.HemisphereLight(0xffffff, 0x7a9a5a, 1.5));
-const sun = new THREE.DirectionalLight(0xfff2dd, 1.7);
+scene.add(new THREE.HemisphereLight(0xffd0dc, 0x3a2a48, 1.55));
+const sun = new THREE.DirectionalLight(0xffc8a8, 1.9);
 sun.position.set(-6, 12, 5); scene.add(sun); scene.add(sun.target);
 const sky = makeSky(); scene.add(sky);
 
@@ -31,7 +32,7 @@ const world = new World(scene);
 
 let hero = null;
 const heroShadow = makeBlob(1.4); scene.add(heroShadow);
-const guard = makeCharacter(GUARD_SKIN); guard.scale.setScalar(1.08); scene.add(guard);
+const guard = makeCharacter(GUARD_SKIN); guard.scale.setScalar(1.06); scene.add(guard);
 const guardShadow = makeBlob(1.6); scene.add(guardShadow);
 const shieldBubble = new THREE.Mesh(new THREE.SphereGeometry(1.25, 18, 14),
   new THREE.MeshBasicMaterial({ color: 0x5cc8ff, transparent: true, opacity: 0.22, depthWrite: false }));
@@ -205,6 +206,7 @@ const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), tmpV = new TH
 
 function frame() {
   requestAnimationFrame(frame);
+  if (window.__freeze) return;   // отладка: остановить кадр
   tick(Math.min(clock.getDelta(), 0.05));
   renderer.render(scene, camera);
 }
@@ -477,7 +479,9 @@ async function boot() {
   applyI18n();
   const loaded = await SDK.load();
   if (loaded) save = Object.assign(structuredClone(DEFAULT_SAVE), loaded, { upg: Object.assign({}, DEFAULT_SAVE.upg, loaded.upg || {}) });
-  if (!save.owned.includes(save.skin)) save.skin = 'ginger';
+  save.owned = save.owned.filter(id => CFG.SKINS.some(s => s.id === id));
+  if (!save.owned.includes('trigot')) save.owned.unshift('trigot');
+  if (!save.owned.includes(save.skin)) save.skin = 'trigot';
   Audio.setEnabled(save.sound);
   setHero(save.skin);
   resetPlayer();
@@ -489,4 +493,4 @@ async function boot() {
 }
 boot();
 // для отладки из консоли
-window.__rr = { get state() { return state; }, P, powers, world, tick, act, startRun, get score() { return score; } };
+window.__rr = { get state() { return state; }, P, powers, world, camera, renderer, scene, get hero() { return hero; }, guard, tick, act, startRun, get score() { return score; } };

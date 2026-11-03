@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Сборка архива Rail Rush для Яндекс Игр.
+"""Сборка архива 3goth2002 Surfers для Яндекс Игр.
 
     python runner/tools/build.py
 
-Кладёт index.html, css/ и js/ в dist/rail-rush-v<версия>.zip (index.html в корне архива),
+Кладёт index.html, css/ и js/ в dist/3goth2002-surfers-v<версия>.zip (index.html в корне архива),
 проверяет, что игра не тянет ничего с чужих доменов, и печатает размер.
 """
 import re
@@ -32,7 +32,7 @@ def main() -> int:
         return 1
 
     DIST.mkdir(exist_ok=True)
-    out = DIST / f"rail-rush-v{ver}.zip"
+    out = DIST / f"3goth2002-surfers-v{ver}.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for f in files:
             z.write(f, f.relative_to(ROOT).as_posix())
